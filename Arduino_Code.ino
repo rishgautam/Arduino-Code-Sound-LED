@@ -1,11 +1,11 @@
-#define Rpin 11
-#define Gpin 10
-#define Bpin 9
-#define delayLEDS 3
-#define sensorPin A0
+#define red 11
+#define green 10
+#define blue 9
 int c=38;
-float sensorValue = 0, filteredSignal = 0,
-      filteredSignalValues[] = {508+c, 510+c, 512+c, 514+c, 516+c, 518+c, 520+c, 522+c, 524+c};
+float sensorvalue = 0, filteredSignal = 0, filteredSignalValues[] = {508+c, 510+c, 512+c, 514+c, 516+c, 518+c, 520+c, 522+c, 524+c};
+#define delay 3
+#define sensor A0
+
       
 
 void setup () {
@@ -20,20 +20,16 @@ void loop () {
 
 void MainFunction() {
 
-  sensorValue = analogRead(sensorPin);
+  sensorvalue = analogRead(sensor);
 
-  FilterSignal(sensorValue);
-
-  Serial.print(sensorValue);
-  Serial.print(" ");
-  Serial.println(filteredSignal);
+  FilterSignal(sensorvalue);
 
   CompareSignalFiltered(filteredSignal);
 }
 
 void FilterSignal(float sensorSignal) {
 
-  filteredSignal = (0.945 * filteredSignal) + (0.0549 * sensorSignal);
+  filteredSignal = (0.950 * filteredSignal) + (0.055 * sensorSignal);
 }
 
 void CompareSignalFiltered(float filteredSignal) {
@@ -79,13 +75,13 @@ void CompareSignalFiltered(float filteredSignal) {
 
 void RGBColor(int Rcolor, int Gcolor, int Bcolor) {
 
-  analogWrite(Rpin, Rcolor);
-  analogWrite(Gpin, Gcolor);
-  analogWrite(Bpin, Bcolor);
+  analogWrite(red, Rcolor);
+  analogWrite(green, Gcolor);
+  analogWrite(blue, Bcolor);
 
-  delay(delayLEDS);
+  delay(delay);
 
-  analogWrite(Rpin, 0);
-  analogWrite(Gpin, 0);
-  analogWrite(Bpin, 0);
+  analogWrite(red, 0);
+  analogWrite(green, 0);
+  analogWrite(blue, 0);
 }
